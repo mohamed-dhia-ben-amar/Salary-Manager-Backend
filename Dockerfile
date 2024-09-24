@@ -8,8 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Add the project JAR file to the container
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+COPY target/*.jar app.jar
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
