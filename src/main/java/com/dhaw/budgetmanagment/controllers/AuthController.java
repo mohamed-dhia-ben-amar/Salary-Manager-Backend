@@ -31,6 +31,18 @@ public class AuthController {
         authService.logout(response);
     }
 
+    @PutMapping("/updateProfile")
+    public ResponseEntity<User> updateProfile(@RequestBody User user) {
+        User updatedUser = authService.updateProfile(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @GetMapping("/updateWalletBalance")
+    public ResponseEntity<User> updateWalletBalance(@RequestParam String email, @RequestParam double amount) {
+        User updatedUser = authService.updateWalletBalance(email, amount);
+        return ResponseEntity.ok(updatedUser);
+    }
+
     @GetMapping("/test")
     public String test() {
         return "Hello World!";

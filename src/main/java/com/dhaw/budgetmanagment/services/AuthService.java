@@ -80,4 +80,28 @@ public class AuthService {
         cookie.setPath("/"); // Accessible throughout the application
         response.addCookie(cookie);
     }
+
+    // Update user profile
+    public User updateProfile(User user) {
+        User existingUser = userRepository.findByEmail(user.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        existingUser.setUsername(user.getUsername());
+        existingUser.setOccupation(user.getOccupation());
+        existingUser.setAnnualSalary(user.getAnnualSalary());
+        existingUser.setMonthlyExpenses(user.getMonthlyExpenses());
+        existingUser.setOtherRevenues(user.getOtherRevenues());
+
+        return userRepository.save(existingUser);
+    }
+
+    // Update wallet balance
+    public User updateWalletBalance(String email, double walletBalance) {
+        User existingUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        existingUser.setWalletBalance(walletBalance);
+
+        return userRepository.save(existingUser);
+    }
 }
