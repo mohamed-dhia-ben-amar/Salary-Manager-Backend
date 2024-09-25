@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    image: openjdk:17-jdk-alpine
+    container_name: budget_management_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/budget_management
+      - SPRING_DATA_MONGODB_DATABASE=budget_management
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+      - SPRING_DATA_MONGODB_USERNAME=root
+      - SPRING_DATA_MONGODB_PASSWORD=root
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: budget_management_mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
