@@ -96,4 +96,10 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>your-repository-id</id>
+            <url>http://your-repository-url</url>
+        </repository>
+    </distributionManagement>
 </project>
